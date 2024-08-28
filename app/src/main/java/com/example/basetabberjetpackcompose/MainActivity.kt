@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,6 +49,7 @@ import com.example.basetabberjetpackcompose.R.*
 import com.example.basetabberjetpackcompose.ui.theme.BottomBarJCTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.res.painterResource
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,78 +74,90 @@ class MainActivity : ComponentActivity() {
 fun MyBottomAppBar() {
     val navigationController = rememberNavController()
     val context = LocalContext.current
-    val selected = remember {
-        mutableStateOf(Icons.Default.Home)
-    }
+    val selected = remember { mutableStateOf(Icons.Default.Home) }
     val title = remember { mutableStateOf("Home") }
+
+    // selectedTabIndex를 상태로 관리
+    val selectedTabIndex = remember { mutableStateOf(0) }
 
     Scaffold(
         topBar = {
-            //AppTopBar(context)
             AppCenterTopBar(context, title.value)
         },
 
         bottomBar = {
             BottomAppBar(
-                containerColor = colorResource(id = R.color.tabbar) // 수정된 부분
+                containerColor = colorResource(id = R.color.tabbar)
             ) {
                 IconButton(
                     onClick = {
+                        selectedTabIndex.value = 0 // 상태로 관리되는 selectedTabIndex
                         selected.value = Icons.Default.Home
                         navigationController.navigate(Screens.Home.screen) {
                             popUpTo(navigationController.graph.startDestinationId)
                             launchSingleTop = true
                         }
-
                         title.value = "Home"
                     },
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(
-                        Icons.Default.Home,
+                    val iconResId = if (selectedTabIndex.value == 0) {
+                        R.drawable.icon_home
+                    } else {
+                        R.drawable.icon_untapped_home
+                    }
+                    Image(
+                        painter = painterResource(id = iconResId),
                         contentDescription = null,
-                        modifier = Modifier.size(26.dp),
-                        tint = if (selected.value == Icons.Default.Home) Color.White else Color.DarkGray
+                        modifier = Modifier.size(26.dp)
                     )
                 }
 
                 IconButton(
                     onClick = {
+                        selectedTabIndex.value = 1
                         selected.value = Icons.Default.Search
                         navigationController.navigate(Screens.ItemList.screen) {
                             popUpTo(navigationController.graph.startDestinationId)
                             launchSingleTop = true
                         }
-
                         title.value = "Item List"
                     },
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(
-                        Icons.Default.Search,
+                    val iconResId = if (selectedTabIndex.value == 1) {
+                        R.drawable.icon_list
+                    } else {
+                        R.drawable.icon_untapped_list
+                    }
+                    Image(
+                        painter = painterResource(id = iconResId),
                         contentDescription = null,
-                        modifier = Modifier.size(26.dp),
-                        tint = if (selected.value == Icons.Default.Search) Color.White else Color.DarkGray
+                        modifier = Modifier.size(26.dp)
                     )
                 }
 
                 IconButton(
                     onClick = {
+                        selectedTabIndex.value = 2
                         selected.value = Icons.Default.Settings
                         navigationController.navigate(Screens.Setting.screen) {
                             popUpTo(navigationController.graph.startDestinationId)
                             launchSingleTop = true
                         }
-
                         title.value = "Setting"
                     },
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(
-                        Icons.Default.Settings,
+                    val iconResId = if (selectedTabIndex.value == 2) {
+                        R.drawable.icon_setting
+                    } else {
+                        R.drawable.icon_untapped_setting
+                    }
+                    Image(
+                        painter = painterResource(id = iconResId),
                         contentDescription = null,
-                        modifier = Modifier.size(26.dp),
-                        tint = if (selected.value == Icons.Default.Settings) Color.White else Color.DarkGray
+                        modifier = Modifier.size(26.dp)
                     )
                 }
             }
