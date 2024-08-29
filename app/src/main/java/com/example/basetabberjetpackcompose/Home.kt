@@ -1,6 +1,7 @@
 package com.example.basetabberjetpackcompose
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,30 +18,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Home(){
-
+fun Home() {
     val context = LocalContext.current
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier
+    Box(
+        modifier = Modifier
             .fillMaxSize()
-            .align(Alignment.Center),
+//            .background(Color.Red) // Set background color to red
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            // 상단에서 40dp 떨어지게, 왼쪽에서 20dp Text 배치
+            // Text with padding from the top and left
             Text(
                 text = "Home Page",
                 fontSize = 30.sp,
                 color = colorResource(id = R.color.black),
                 modifier = Modifier
                     .padding(top = 40.dp, start = 20.dp)
-                    .align(Alignment.Start) // 상단 패딩 추가
+                    .align(Alignment.Start)
             )
 
             Box(
@@ -56,9 +62,15 @@ fun Home(){
                         Toast.LENGTH_SHORT
                     ).show()
                 }) {
-                    Icon(Icons.Default.Add, contentDescription = null, tint = colorResource(id = R.color.tabbar)) // 수정된 부분
+                    Icon(Icons.Default.Add, contentDescription = null, tint = colorResource(id = R.color.tabbar))
                 }
             }
         }
     }
+}
+
+@Preview(showBackground = true, device = Devices.PHONE)
+@Composable
+fun HomePreview() {
+    Home()
 }

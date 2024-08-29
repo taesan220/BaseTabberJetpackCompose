@@ -1,6 +1,7 @@
 package com.example.basetabberjetpackcompose
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -26,7 +29,10 @@ fun Setting(){
 
     val context = LocalContext.current
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+//        .background(Color.Red) // Set background color to red
+    ) {
         Column(modifier = Modifier
             .fillMaxSize()
             .align(Alignment.Center),
@@ -60,4 +66,10 @@ fun Setting(){
             }
         }
     }
+}
+
+@Preview(showBackground = true, device = Devices.PHONE)
+@Composable
+fun SettingPreview() {
+    Setting()
 }
