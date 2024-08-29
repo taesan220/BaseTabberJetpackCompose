@@ -12,6 +12,7 @@
     <color name="top_navigation_bar">#FFFFFFFF</color>
 
     <color name="tabbar">#FF3C2B6D</color>
+    <color name="colour_tabbar_title">#FF5E479B</color>
     <color name="tabbar_background">#FF484848</color>
 
 

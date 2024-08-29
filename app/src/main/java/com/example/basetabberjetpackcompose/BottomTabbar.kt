@@ -14,6 +14,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -64,7 +65,8 @@ fun BottomTabButtons(
                 Text(
                     text = "Home",
                     fontSize = 12.sp,
-                    color = if (selectedTabIndex == 0) Color.White else Color.Gray
+                    color = if (selectedTabIndex == 0) Color.White else colorResource(id = R.color.colour_tabbar_title)
+
                 )
             }
         }
@@ -103,7 +105,8 @@ fun BottomTabButtons(
                 Text(
                     text = "Item List",
                     fontSize = 12.sp,
-                    color = if (selectedTabIndex == 1) Color.White else Color.Gray
+                    color = if (selectedTabIndex == 1) Color.White else colorResource(id = R.color.colour_tabbar_title)
+
                 )
             }
         }
@@ -140,7 +143,7 @@ fun BottomTabButtons(
                 Text(
                     text = "Setting",
                     fontSize = 12.sp,
-                    color = if (selectedTabIndex == 2) Color.White else Color.Gray
+                    color = if (selectedTabIndex == 2) Color.White else colorResource(id = R.color.colour_tabbar_title)
                 )
             }
         }
