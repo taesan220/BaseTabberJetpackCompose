@@ -9,6 +9,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="top_navigation_bar">#FFFFFFFF</color>
+
     <color name="tabbar">#FF3C2B6D</color>
     <color name="tabbar_background">#FF484848</color>
 

@@ -1,7 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.example.basetabberjetpackcompose
-
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
@@ -9,21 +8,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +30,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,8 +47,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.basetabberjetpackcompose.R.*
 import com.example.basetabberjetpackcompose.ui.theme.BottomBarJCTheme
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.res.painterResource
 
 class MainActivity : ComponentActivity() {
@@ -59,10 +57,8 @@ class MainActivity : ComponentActivity() {
             BottomBarJCTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(id = R.color.white) // 수정된 부분
+                    color = colorResource(id = R.color.white)
                 ) {
-                    Text(text = "Setting", fontSize = 30.sp, color = Color.Black)
-
                     MyBottomAppBar()
                 }
             }
@@ -84,14 +80,15 @@ fun MyBottomAppBar() {
         topBar = {
             AppCenterTopBar(context, title.value)
         },
-
         bottomBar = {
             BottomAppBar(
-                containerColor = colorResource(id = R.color.tabbar)
+                containerColor = colorResource(id = R.color.tabbar),
+
             ) {
+                // Home Button
                 IconButton(
                     onClick = {
-                        selectedTabIndex.value = 0 // 상태로 관리되는 selectedTabIndex
+                        selectedTabIndex.value = 0
                         selected.value = Icons.Default.Home
                         navigationController.navigate(Screens.Home.screen) {
                             popUpTo(navigationController.graph.startDestinationId)
@@ -99,20 +96,34 @@ fun MyBottomAppBar() {
                         }
                         title.value = "Home"
                     },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight() // IconButton을 BottomAppBar의 높이에 맞게 설정
                 ) {
-                    val iconResId = if (selectedTabIndex.value == 0) {
-                        R.drawable.icon_home
-                    } else {
-                        R.drawable.icon_untapped_home
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center, // Column의 수직 정렬을 중앙으로 설정
+                        modifier = Modifier.fillMaxHeight().fillMaxWidth() // Column이 IconButton의 전체 높이, 전체 넓이를 차지하도록 설정
+                    ) {
+                        val iconResId = if (selectedTabIndex.value == 0) {
+                            R.drawable.icon_home
+                        } else {
+                            R.drawable.icon_untapped_home
+                        }
+                        Image(
+                            painter = painterResource(id = iconResId),
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp)
+                        )
+                        Text(
+                            text = "Home",
+                            fontSize = 12.sp,
+                            color = if (selectedTabIndex.value == 0) Color.White else Color.Gray
+                        )
                     }
-                    Image(
-                        painter = painterResource(id = iconResId),
-                        contentDescription = null,
-                        modifier = Modifier.size(26.dp)
-                    )
                 }
 
+                // Item List Button
                 IconButton(
                     onClick = {
                         selectedTabIndex.value = 1
@@ -123,20 +134,34 @@ fun MyBottomAppBar() {
                         }
                         title.value = "Item List"
                     },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight() // IconButton을 BottomAppBar의 높이에 맞게 설정
                 ) {
-                    val iconResId = if (selectedTabIndex.value == 1) {
-                        R.drawable.icon_list
-                    } else {
-                        R.drawable.icon_untapped_list
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center, // Column의 수직 정렬을 중앙으로 설정
+                        modifier = Modifier.fillMaxHeight().fillMaxWidth() // Column이 IconButton의 전체 높이, 전체 넓이를 차지하도록 설정
+                    ) {
+                        val iconResId = if (selectedTabIndex.value == 1) {
+                            R.drawable.icon_list
+                        } else {
+                            R.drawable.icon_untapped_list
+                        }
+                        Image(
+                            painter = painterResource(id = iconResId),
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp)
+                        )
+                        Text(
+                            text = "Item List",
+                            fontSize = 12.sp,
+                            color = if (selectedTabIndex.value == 1) Color.White else Color.Gray
+                        )
                     }
-                    Image(
-                        painter = painterResource(id = iconResId),
-                        contentDescription = null,
-                        modifier = Modifier.size(26.dp)
-                    )
                 }
 
+                // Settings Button
                 IconButton(
                     onClick = {
                         selectedTabIndex.value = 2
@@ -147,18 +172,31 @@ fun MyBottomAppBar() {
                         }
                         title.value = "Setting"
                     },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight() // IconButton을 BottomAppBar의 높이에 맞게 설정
                 ) {
-                    val iconResId = if (selectedTabIndex.value == 2) {
-                        R.drawable.icon_setting
-                    } else {
-                        R.drawable.icon_untapped_setting
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center, // Column의 수직 정렬을 중앙으로 설정
+                        modifier = Modifier.fillMaxHeight() // Column이 IconButton의 전체 높이를 차지하도록 설정
+                    ) {
+                        val iconResId = if (selectedTabIndex.value == 2) {
+                            R.drawable.icon_setting
+                        } else {
+                            R.drawable.icon_untapped_setting
+                        }
+                        Image(
+                            painter = painterResource(id = iconResId),
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp)
+                        )
+                        Text(
+                            text = "Setting",
+                            fontSize = 12.sp,
+                            color = if (selectedTabIndex.value == 2) Color.White else Color.Gray
+                        )
                     }
-                    Image(
-                        painter = painterResource(id = iconResId),
-                        contentDescription = null,
-                        modifier = Modifier.size(26.dp)
-                    )
                 }
             }
         }
@@ -166,7 +204,9 @@ fun MyBottomAppBar() {
         NavHost(
             navController = navigationController,
             startDestination = Screens.Home.screen,
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .fillMaxSize().padding(paddingValues)
+                .padding(bottom = 56.dp) // BottomAppBar 높이만큼 여백 추가
         ) {
             composable(Screens.Home.screen) { Home() }
             composable(Screens.ItemList.screen) { ItemList() }
@@ -186,30 +226,34 @@ fun MyBottomBarPreview() {
 @Composable
 fun AppTopBar(context: Context) {
     TopAppBar(
-        title = { Text(text = "My App",
-                color = colorResource(id = R.color.white) // 제목 텍스트 색상 변경
-        ) },
+        title = {
+            Text(
+                text = "My App",
+                color = colorResource(id = R.color.white)
+            )
+        },
         navigationIcon = {
             IconButton(onClick = {
-                // 액션 버튼 클릭 시 수행할 작업
                 Toast.makeText(context, "Menu clicked", Toast.LENGTH_SHORT).show()
             }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Menu",
-                    tint = colorResource(id = R.color.white) // 아이콘 색상 변경
+                    tint = colorResource(id = R.color.white)
                 )
             }
         },
         actions = {
             IconButton(onClick = { Toast.makeText(context, "Search button pressed", Toast.LENGTH_SHORT).show() }) {
-                Icon(Icons.Filled.Search, contentDescription = "Search",
-                    tint = colorResource(id = R.color.white) // 아이콘 색상 변경
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "Search",
+                    tint = colorResource(id = R.color.white)
                 )
             }
         },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = colorResource(id = R.color.tabbar) // 배경색 설정
+            containerColor = colorResource(id = R.color.tabbar)
         )
     )
 }
@@ -220,24 +264,23 @@ fun AppCenterTopBar(context: Context, title: String) {
         title = {
             Box(
                 modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center // 텍스트를 중앙에 배치
+                contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = title,
-                    color = Color.White, // 제목 텍스트 색상 변경
-                    fontSize = 20.sp // 폰트 크기 설정
+                    color = colorResource(id = R.color.black),
+                    fontSize = 20.sp
                 )
             }
         },
         navigationIcon = {
             IconButton(onClick = {
-                // 액션 버튼 클릭 시 수행할 작업
                 Toast.makeText(context, "Menu clicked", Toast.LENGTH_SHORT).show()
             }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Menu",
-                    tint = Color.White // 아이콘 색상 변경
+                    tint = colorResource(id = R.color.black)
                 )
             }
         },
@@ -246,12 +289,12 @@ fun AppCenterTopBar(context: Context, title: String) {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = "Search",
-                    tint = Color.White // 아이콘 색상 변경
+                    tint = colorResource(id = R.color.black)
                 )
             }
         },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = colorResource(id = R.color.tabbar) // 배경색 설정
+            containerColor = colorResource(id = R.color.top_navigation_bar)
         )
     )
 }
