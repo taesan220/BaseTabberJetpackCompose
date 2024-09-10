@@ -1,4 +1,4 @@
-package com.example.basetabberjetpackcompose
+package com.example.basetabberjetpackcompose.tabbar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.basetabberjetpackcompose.R
+import com.example.basetabberjetpackcompose.Screens
 
 @Composable
 fun BottomTabButtons(
