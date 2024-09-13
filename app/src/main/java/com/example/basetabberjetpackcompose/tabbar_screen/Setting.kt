@@ -1,7 +1,6 @@
-package com.example.basetabberjetpackcompose
+package com.example.basetabberjetpackcompose.tabbar_screen
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,38 +14,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.basetabberjetpackcompose.R
 
 @Composable
-fun Home() {
+fun Setting(){
+
     val context = LocalContext.current
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-//            .background(Color.Red) // Set background color to red
+    Box(modifier = Modifier
+        .fillMaxSize()
+//        .background(Color.Red) // Set background color to red
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center),
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .align(Alignment.Center),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Text with padding from the top and left
+
+            // 상단에서 40dp 떨어지게, 왼쪽에서 20dp Text 배치
             Text(
-                text = "Home Page",
+                text = "Setting Page",
                 fontSize = 30.sp,
                 color = colorResource(id = R.color.black),
-                modifier = Modifier
-                    .padding(top = 40.dp, start = 20.dp)
-                    .align(Alignment.Start)
+                modifier = Modifier.padding(top = 40.dp, start = 20.dp).align(Alignment.Start) // 상단 패딩 추가
             )
 
             Box(
@@ -62,7 +59,7 @@ fun Home() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }) {
-                    Icon(Icons.Default.Add, contentDescription = null, tint = colorResource(id = R.color.tabbar))
+                    Icon(Icons.Default.Add, contentDescription = null, tint = colorResource(id = R.color.tabbar)) // 수정된 부분
                 }
             }
         }
@@ -71,6 +68,6 @@ fun Home() {
 
 @Preview(showBackground = true, device = Devices.PHONE)
 @Composable
-fun HomePreview() {
-    Home()
+fun SettingPreview() {
+    Setting()
 }

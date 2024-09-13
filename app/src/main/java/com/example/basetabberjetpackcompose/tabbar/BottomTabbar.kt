@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.basetabberjetpackcompose.R
-import com.example.basetabberjetpackcompose.Screens
+import com.example.basetabberjetpackcompose.tabbar_screen.Screens
 
 @Composable
 fun BottomTabButtons(

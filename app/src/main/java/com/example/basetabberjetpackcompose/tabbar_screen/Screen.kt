@@ -1,4 +1,4 @@
-package com.example.basetabberjetpackcompose
+package com.example.basetabberjetpackcompose.tabbar_screen
 
 sealed class Screens (val screen: String) {
 
