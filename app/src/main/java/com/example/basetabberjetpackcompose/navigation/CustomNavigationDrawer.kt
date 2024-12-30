@@ -1,5 +1,6 @@
 package com.example.sidemenupractice2.navigationDrawer
 
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -57,37 +58,51 @@ fun CustomNavigationDrawer(
         ),
     )
 
-    ModalDrawerSheet (
+    BoxWithConstraints {
+
+        println("maxWidth = $maxWidth")
+
+        // 화면 너비를 기준으로 드로어 너비 설정
+        val drawerWidth = if (maxWidth > 450.dp) {
+            350.dp // 타블릿으로 간주 // 가로 사이즈를 350dp로 설정
+        } else {
+            250.dp // 일반 기기로 간주 // 가로 사이즈를 250dp로 설정
+        }
+
         //modifier = Modifier.width(300.dp) // 가로 사이즈를 250dp로 설정
-        modifier = Modifier.fillMaxWidth(0.75f) // 화면 너비의 3/4를 설정
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        items.forEachIndexed { index, item ->
-            NavigationDrawerItem(
-                label = {
-                    Text(text = item.title)
-                },
-                selected = index == selectedItemIndex,
-                onClick = {
-                    onItemSelected(index)
-                },
-                icon = {
-                    Icon(
-                        imageVector = if (index == selectedItemIndex) {
-                            item.selectedIcon
-                        } else {
-                            item.unSelectedIcon
-                        },
-                        contentDescription = item.title
-                    )
-                },
-                badge = {
-                    item.badgecount?.let {
-                        Text(text = item.badgecount.toString())
-                    }
-                },
-                modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-            )
+        //modifier = Modifier.fillMaxWidth(0.75f) // 화면 너비의 3/4를 설정 -> 문제 발생
+
+        ModalDrawerSheet(
+            modifier = Modifier.width(drawerWidth)
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            items.forEachIndexed { index, item ->
+                NavigationDrawerItem(
+                    label = {
+                        Text(text = item.title)
+                    },
+                    selected = index == selectedItemIndex,
+                    onClick = {
+                        onItemSelected(index)
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = if (index == selectedItemIndex) {
+                                item.selectedIcon
+                            } else {
+                                item.unSelectedIcon
+                            },
+                            contentDescription = item.title
+                        )
+                    },
+                    badge = {
+                        item.badgecount?.let {
+                            Text(text = item.badgecount.toString())
+                        }
+                    },
+                    modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                )
+            }
         }
     }
 }
